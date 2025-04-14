@@ -67,6 +67,3 @@ ESP32_C6 - pins:
 25 - TX - UART TX debug
 26 - EPD_BUSY - BUSY signal from EPD
 27 - MISO - SPI MISO
-
-
-![Ports](Images/OpenBook-5.png)
