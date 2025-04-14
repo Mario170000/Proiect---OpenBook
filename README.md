@@ -38,35 +38,61 @@ BOM:
 | 1   | ESP32C6_VARISTORCN1812                                      | ESP32C6_VARISTORCN1812                                      | PFMP.050.1                                                | VARISTOR                                                                                                                                                                                                                              | [link](https://ro.mouser.com/ProductDetail/EPCOS-TDK/B72580V3140S272?qs=v4Mlc8l4PHkyDvCWZ8i%252Bvg%3D%3D)                                                                                         | [link](https://en.tdk.eu/inf/75/db/CTVS_14/Surge_protection_series.pdf)                                                                                |
 | 2   | ESP32_WROVER_AVX---SD0805S020S1R0_AVX_SD0805S020S1R0_0_0AVX_SD0805S020S1R0_0_0 | ESP32_WROVER_AVX---SD0805S020S1R0_AVX_SD0805S020S
 
-ESP32_C6 - pins:
+## ESP32-C6 Pinout
 
-1 - GND - common ground
-2 - 3V3 - power line
-3 - RESET - reser button
-4 - SS_SD - chip for SD card
-5 - EPD_DC - E-Paper Display - Data/Command
-6 - SCK - SPI clock for BME688
-7 - MOSI - SPI MOSI
-8 - INT_RTC - RTC Interrupt (DS3231SN)
-9 - 32KHZ   - RTC 32KHZ output  
-10 - 3V3/GPIO8 - power line
-11 - EPD_CS - E-Paper Display Chip Select
-12 - FLASH_CS - External NORFlash64MB
-13 - USB_D-     USB D- LINE
-14 - USB_D+     USB D+ LINE
-15 - IO/BOOT    BOOT button
-16 - RTC_RST -  RTC Module DS3231SN reset button
-17 - IC2_PW - BME688 power line
-18 - EPD_3V3_C - EPD Power
-19 - SDA - Battery Charge Level
-20 - SCL - Battery SCL
-21 - EPD_RST - E-Paper Display Header reset button
-22 - X (not in use)
-23 - IO/CHANGE - User Button
-24 - RX - UART RX debug
-25 - TX - UART TX debug
-26 - EPD_BUSY - BUSY signal from EPD
-27 - MISO - SPI MISO
+| Pin | Name        | Function                             |
+|-----|-------------|--------------------------------------|
+| 1   | GND         | Common ground                        |
+| 2   | 3V3         | Power line                           |
+| 3   | RESET       | Reset button                         |
+| 4   | SS_SD       | SD card chip select                  |
+| 5   | EPD_DC      | E-Paper Display Data/Command         |
+| 6   | SCK         | SPI Clock for BME688                 |
+| 7   | MOSI        | SPI Master Out Slave In              |
+| 8   | INT_RTC     | RTC Interrupt (DS3231SN)             |
+| 9   | 32KHZ       | RTC 32kHz output                     |
+| 10  | 3V3/GPIO8   | Power line                           |
+| 11  | EPD_CS      | E-Paper Display Chip Select          |
+| 12  | FLASH_CS    | External NOR Flash (64MB)            |
+| 13  | USB_D-      | USB D- line                          |
+| 14  | USB_D+      | USB D+ line                          |
+| 15  | IO/BOOT     | BOOT button                          |
+| 16  | RTC_RST     | RTC Module Reset (DS3231SN)          |
+| 17  | I2C_PW      | BME688 power line                    |
+| 18  | EPD_3V3_C   | EPD Power                            |
+| 19  | SDA         | Battery charge level (I²C)           |
+| 20  | SCL         | Battery SCL (I²C)                    |
+| 21  | EPD_RST     | E-Paper Display Reset                |
+| 22  | X           | Not in use                           |
+| 23  | IO/CHANGE   | User button                          |
+| 24  | RX          | UART RX for debugging                |
+| 25  | TX          | UART TX for debugging                |
+| 26  | EPD_BUSY    | E-Paper Display Busy signal          |
+| 27  | MISO        | SPI Master In Slave Out              |
 
 
-![Ports](Images/OpenBook-5.png)
+# Hardware Components Overview
+
+This section provides a detailed description of the key hardware components used in the OpenBook project.
+
+## ESP32-C6-WROOM-1-N8
+The **ESP32-C6-WROOM-1-N8** is a powerful Wi-Fi 6 and Bluetooth 5 LE module based on the ESP32-C6 SoC, with 8MB of integrated flash. It features a RISC-V processor and provides low-power connectivity for IoT applications. In this project, it acts as the **main microcontroller**, handling data acquisition, processing, and wireless communication.
+
+## BME680
+The **BME680** is a 4-in-1 environmental sensor that measures **temperature, humidity, barometric pressure, and air quality (VOC)**. It communicates via I²C or SPI. In this device, it provides ambient condition monitoring, enabling features like smart display behavior or indoor air quality feedback.
+
+## MCP73831T-2ACI/OT
+The **MCP73831** is a **Li-Ion/Li-Po linear battery charger** IC, supporting single-cell charging through a constant-current/constant-voltage algorithm. It is used to safely charge the onboard Li-Po battery when the device is connected to USB power.
+
+## W25Q512JVEIQ
+The **W25Q512JVEIQ** is a **512M-bit (64MB) SPI NOR Flash memory** from Winbond. It provides additional non-volatile storage space, useful for storing large assets such as e-books, sensor logs, or firmware updates. It is connected via SPI to the ESP32.
+
+## USBLC6-2SC6Y
+The **USBLC6-2SC6Y** is a **dual-line ESD protection device** designed to protect USB data lines from electrostatic discharge. It ensures signal integrity and protects the USB interface (D+ and D−) from damage, especially during hot-plug events or electrostatic contact.
+
+## 112A-TAAR-R03
+The **112A-TAAR-R03** is a **mechanical tactile push button switch**, typically used for user input. In this project, it serves as a **physical interface**, such as page turning, menu selection, or device wake-up. It is connected to GPIOs on the ESP32 and configured with internal pull-up resistors.
+
+## USB4110-GF-A
+The **USB4110-GF-A** is a **USB Type-C receptacle connector**. It provides the physical interface for USB charging and communication. It connects to the USB-to-UART circuitry (or directly to ESP32 if used in native USB mode) and to the battery charging IC.
+
